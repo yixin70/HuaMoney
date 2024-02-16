@@ -1,4 +1,6 @@
-﻿using HuaMoney.Models;
+﻿using HuaMoney.Interfaces;
+using HuaMoney.Models;
+using HuaMoney.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace HuaMoney
@@ -15,7 +17,12 @@ namespace HuaMoney
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+            
+            
             services.AddControllersWithViews();
+            services.AddScoped<IBankService, BankService>();
+            
 
             string db_host = Environment.GetEnvironmentVariable("DB_HOST");
             string db_user = Environment.GetEnvironmentVariable("DB_USER");

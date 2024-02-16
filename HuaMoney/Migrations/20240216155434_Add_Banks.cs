@@ -10,7 +10,7 @@ namespace HuaMoney.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("INSERT INTO Banks (Country, Name)" +
+            migrationBuilder.Sql("INSERT INTO banks (Country, Name)" +
                                 " VALUES ('ES', 'Banco Bilbao Vizcaya Argentaria, S.A'), ('ES', 'Banco de Sabadell, S.A.'), ('ES', 'Santander'), ('ES', 'CaixaBank')" +
                                 " , ('GB', 'Revolut Ltd'), ('ES', 'N26 Bank AG'), ('CN', '上海银行'), ('CN', '微信支付'), ('CN', '支付宝')");
 
@@ -19,7 +19,7 @@ namespace HuaMoney.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"DELETE FROM Banks");
+            migrationBuilder.Sql(@"DELETE FROM banks");
         }
     }
 }
