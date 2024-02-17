@@ -1,4 +1,5 @@
 ﻿using HuaMoney.Dto.Bank;
+using HuaMoney.Dto.Transaction;
 
 namespace HuaMoney.Dto
 {
@@ -6,7 +7,8 @@ namespace HuaMoney.Dto
     {
         public DtoMappingProfile()
         {
-            CreateMap<HuaMoney.Models.Bank, BankDto>().ReverseMap();
+            CreateMap<Models.Bank, BankDto>().ReverseMap();
+            CreateMap<Models.Transaction, TransactionDto>().ReverseMap();
         }
 
     }

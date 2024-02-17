@@ -19,11 +19,10 @@ namespace HuaMoney
         {
             services.AddAutoMapper(typeof(Startup));
             
-            
             services.AddControllersWithViews();
             services.AddScoped<IBankService, BankService>();
+            services.AddScoped<ITransactionService, TransactionService>();
             
-
             string db_host = Environment.GetEnvironmentVariable("DB_HOST");
             string db_user = Environment.GetEnvironmentVariable("DB_USER");
             string db_database = Environment.GetEnvironmentVariable("DB_DATABASE");
