@@ -1,6 +1,8 @@
-﻿using HuaMoney.Interfaces;
+﻿using HuaMoney.Dto;
+using HuaMoney.Interfaces;
 using HuaMoney.Models;
 using HuaMoney.Services;
+using HuaMoney.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace HuaMoney
@@ -17,7 +19,14 @@ namespace HuaMoney
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(cfg =>
+            {
+                //cfg.CreateMap<string, float>().ConvertUsing(new StringFloatConverter());
+                //cfg.CreateMap<string, DateTime>().ConvertUsing(new StringDateTimeConverter());
+                //cfg.CreateMap<DateTime, string>().ConvertUsing(new DateTimeStringConverter());
+            },
+            typeof(DtoMappingProfile),
+            typeof(ViewModelMappingProfile));
             
             services.AddControllersWithViews();
             services.AddScoped<IBankService, BankService>();

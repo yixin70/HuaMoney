@@ -32,5 +32,22 @@ namespace HuaMoney.Services
             await _context.SaveChangesAsync();
             return _mapper.Map<TransactionDto>(transaction);
         }
+
+        public async Task<TransactionDto> FindOne(long id)
+        {
+            var transaction = await _context.Transactions.Where(item => item.Id == id)
+                                                        .AsNoTracking()
+                                                        .ProjectTo<TransactionDto>(_mapper.ConfigurationProvider)
+                                                        .FirstOrDefaultAsync();
+
+            return transaction;
+        }
+
+        public async Task<int> Delete(long id)
+        {
+            var transaction = await _context.Transactions.Where(item => item.Id == id).FirstAsync();
+            _context.Remove(transaction);
+            return await _context.SaveChangesAsync();
+        }
     }
 }
