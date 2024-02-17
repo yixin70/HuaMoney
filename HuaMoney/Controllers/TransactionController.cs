@@ -17,7 +17,8 @@ namespace HuaMoney.Controllers
             _mapper = mapper;
         }
 
-        // GET: Transaction
+        [HttpGet("[controller]/[action]")]
+        [HttpGet("[controller]")]
         public async Task<IActionResult> Index()
         {
             var transactions = await _transactionService.Find();
@@ -27,6 +28,7 @@ namespace HuaMoney.Controllers
         }
 
         // GET: Transaction/Details/5
+        [HttpGet("[controller]/[action]/{id}")]
         public async Task<IActionResult> Details(long id)
         {
 
@@ -38,6 +40,7 @@ namespace HuaMoney.Controllers
         }
 
         // GET: Transaction/Create
+        [HttpGet("[controller]/[action]")]
         public IActionResult Create()
         {
             //ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id");
@@ -120,6 +123,7 @@ namespace HuaMoney.Controllers
         // }
 
         // GET: Transaction/Delete/5
+        [HttpGet("[controller]/[action]/{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             var transaction = await _transactionService.FindOne(id);
@@ -132,7 +136,8 @@ namespace HuaMoney.Controllers
         }
 
         // POST: Transaction/Delete/5
-        [HttpPost, ActionName("Delete")]
+        //[HttpPost, ActionName("Delete")]
+        [HttpPost("[controller]/[action]/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
