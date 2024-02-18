@@ -25,6 +25,8 @@ public partial class HuaMoneyContext : DbContext
     public virtual DbSet<Transaction> Transactions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    
+    public virtual DbSet<Currency> Currency { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

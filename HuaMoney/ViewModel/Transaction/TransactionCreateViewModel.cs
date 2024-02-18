@@ -1,6 +1,8 @@
 using HuaMoney.Dto.Account;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using HuaMoney.Dto.Currency;
+using HuaMoney.Models;
 
 namespace HuaMoney.ViewModel.Transaction;
 
@@ -16,5 +18,5 @@ public class TransactionCreateViewModel
     public decimal AccountAmountAfter { get; set; }
 
     public List<AccountDto> Accounts { get; set; } = new List<AccountDto>();
-
+    public List<CurrencyDto> Currencies { get; set; } = new List<CurrencyDto>();
 }

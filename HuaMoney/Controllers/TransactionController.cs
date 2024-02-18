@@ -13,13 +13,16 @@ namespace HuaMoney.Controllers
         private readonly IMapper _mapper;
         private readonly ITransactionService _transactionService;
         private readonly IAccountService _accountService;
+        private readonly ICurrencyService _currencyService;
 
         public TransactionController(ITransactionService transactionService, 
                                         IAccountService accountService,
-            IMapper mapper)
+                                        ICurrencyService currencyService,
+                                        IMapper mapper)
         {
             _transactionService = transactionService;
             _accountService = accountService;
+            _currencyService = currencyService;
             _mapper = mapper;
         }
 
@@ -51,6 +54,7 @@ namespace HuaMoney.Controllers
         {
             var vm = new TransactionCreateViewModel();
             vm.Accounts = await _accountService.Find();
+            vm.Currencies = await _currencyService.Find();
 
             return View(vm);
         }
