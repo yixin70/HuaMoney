@@ -31,6 +31,7 @@ namespace HuaMoney
             services.AddControllersWithViews();
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IAccountService, AccountService>();
             
             string db_host = Environment.GetEnvironmentVariable("DB_HOST");
             string db_user = Environment.GetEnvironmentVariable("DB_USER");

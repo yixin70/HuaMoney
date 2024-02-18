@@ -3,6 +3,8 @@ using HuaMoney.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using HuaMoney.ViewModel.Transaction;
 using AutoMapper;
+using HuaMoney.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HuaMoney.Controllers
 {
@@ -10,10 +12,14 @@ namespace HuaMoney.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ITransactionService _transactionService;
+        private readonly IAccountService _accountService;
 
-        public TransactionController(ITransactionService transactionService, IMapper mapper)
+        public TransactionController(ITransactionService transactionService, 
+                                        IAccountService accountService,
+            IMapper mapper)
         {
             _transactionService = transactionService;
+            _accountService = accountService;
             _mapper = mapper;
         }
 
@@ -55,17 +61,17 @@ namespace HuaMoney.Controllers
         public async Task<IActionResult> Create([Bind("Id,AccountAmountAfter,AccountId,Amount,Concept,Currency,Date,Recipient")] TransactionCreateViewModel newTransaction)
         {
 
-            if (!ModelState.IsValid) return BadRequest();
-
-
+            if (!ModelState.IsValid) return View(newTransaction);
+            
             var newTransactionDto = _mapper.Map<TransactionDto>(newTransaction);
             
             var added_transaction = await _transactionService.Add(newTransactionDto);
-            Console.WriteLine(added_transaction);
             return RedirectToAction(nameof(Index));
 
-            //ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", newTransaction.AccountId);
-            //return View(newTransaction);
+            var accountList = await _accountService.Find();
+            
+            ViewData["AccountId"] = new SelectList(accountList, "Id", "Name", newTransaction.AccountId);
+            return View(newTransaction);
         }
 
         //
@@ -131,8 +137,8 @@ namespace HuaMoney.Controllers
             {
                 return NotFound();
             }
-
-            return View(transaction);
+            var transactionfromdto = _mapper.Map<Transaction>(transaction);
+            return View(transactionfromdto);
         }
 
         // POST: Transaction/Delete/5
