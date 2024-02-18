@@ -68,7 +68,7 @@ namespace HuaMoney.Controllers
             
             var newTransactionDto = _mapper.Map<AccountDto>(newTransaction);
             
-            var added_transaction = await _accountService.Add(newTransactionDto);
+            // var added_transaction = await _accountService.Add(newTransactionDto);
             return RedirectToAction(nameof(Index));
 
             // //var accountList = await _accountService.Find();

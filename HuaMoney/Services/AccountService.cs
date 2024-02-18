@@ -25,4 +25,22 @@ public class AccountService: IAccountService
                                     .ProjectTo<AccountDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync();
     }
+
+    public async Task<AccountDto> FindOne(long id)
+    {
+        var account = await _context.Accounts.Where(item => item.Id == id)
+                                                    .AsNoTracking()
+                                                    .ProjectTo<AccountDto>(_mapper.ConfigurationProvider)
+                                                    .FirstOrDefaultAsync();
+        return account;
+    }
+
+    public async Task<int> Delete(long id)
+    {
+        var account = await _context.Accounts.Where(item => item.Id == id).FirstAsync();
+        _context.Remove(account);
+        return await _context.SaveChangesAsync();
+    }
+
+
 }
