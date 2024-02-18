@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HuaMoney.Models;
 
@@ -15,7 +14,8 @@ public partial class Account
 
     public long BankId { get; set; }
 
-    public string Currency { get; set; } = null!;
+    [Required]
+    public string CurrencyId { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -24,4 +24,6 @@ public partial class Account
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
     public virtual User User { get; set; } = null!;
+    
+    public virtual Currency Currency { get; set; }
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HuaMoney.Migrations
 {
     [DbContext(typeof(HuaMoneyContext))]
-    [Migration("20240217151852_Add_Transactions")]
-    partial class Add_Transactions
+    [Migration("20240218164928_CurrencyData")]
+    partial class CurrencyData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,9 +41,9 @@ namespace HuaMoney.Migrations
                     b.Property<long>("BankId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Currency")
+                    b.Property<string>("CurrencyId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -54,6 +54,8 @@ namespace HuaMoney.Migrations
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");
+
+                    b.HasIndex("CurrencyId");
 
                     b.HasIndex(new[] { "BankId" }, "IX_Accounts_BankId");
 
@@ -80,6 +82,20 @@ namespace HuaMoney.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("banks", (string)null);
+                });
+
+            modelBuilder.Entity("HuaMoney.Models.Currency", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("HuaMoney.Models.Efmigrationshistory", b =>
@@ -118,9 +134,9 @@ namespace HuaMoney.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Currency")
+                    b.Property<string>("CurrencyId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
@@ -134,6 +150,8 @@ namespace HuaMoney.Migrations
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");
+
+                    b.HasIndex("CurrencyId");
 
                     b.HasIndex(new[] { "AccountId" }, "IX_Transactions_AccountId");
 
@@ -165,6 +183,12 @@ namespace HuaMoney.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Accounts_Banks_BankId");
 
+                    b.HasOne("HuaMoney.Models.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HuaMoney.Models.User", "User")
                         .WithMany("Accounts")
                         .HasForeignKey("UserId")
@@ -173,6 +197,8 @@ namespace HuaMoney.Migrations
                         .HasConstraintName("FK_Accounts_Users_UserId");
 
                     b.Navigation("Bank");
+
+                    b.Navigation("Currency");
 
                     b.Navigation("User");
                 });
@@ -186,7 +212,15 @@ namespace HuaMoney.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Transactions_Accounts_AccountId");
 
+                    b.HasOne("HuaMoney.Models.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Account");
+
+                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("HuaMoney.Models.Account", b =>
