@@ -1,11 +1,11 @@
 using HuaMoney.Dto.Transaction;
 using HuaMoney.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using HuaMoney.ViewModel.Transaction;
 using AutoMapper;
 using HuaMoney.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuaMoney.Dto.Account;
+using HuaMoney.ViewModel.Account;
 
 namespace HuaMoney.Controllers
 {

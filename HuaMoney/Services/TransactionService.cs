@@ -18,12 +18,39 @@ namespace HuaMoney.Services
             _mapper = mapper;
         }
 
-        public async Task<List<TransactionDto>> Find()
+        public async Task<List<TransactionDto>> Find(TransactionFilterDto? filter = null)
         {
-            return await _context.Transactions.AsNoTracking()
-                                        .ProjectTo<TransactionDto>(_mapper.ConfigurationProvider)
-                                        .ToListAsync();
+            var query = BuildFindQuery(filter);
+
+            return await query.AsNoTracking()
+                                .ProjectTo<TransactionDto>(_mapper.ConfigurationProvider)
+                                .ToListAsync();
         }
+
+        private IQueryable<Transaction> BuildFindQuery(TransactionFilterDto? filter = null)
+        {
+            var query = _context.Transactions.AsQueryable();
+
+            if(filter != null)
+            {
+                if (filter.AccountId != null)
+                    query = query.Where(item => item.AccountId == filter.AccountId); 
+
+                if (filter.Recipient != null)
+                    query = query.Where(item => item.Recipient.Contains(filter.Recipient)); 
+
+                //FECHA
+                if(filter.EndDate != null && filter.StartDate != null)
+                {
+                    query = query.Where(item => item.Date.CompareTo(filter.EndDate) < 0 && item.Date.CompareTo(filter.StartDate) >= 0);
+                }
+
+                //CATEGORY ID NOT IMPLEMENTED
+
+            }
+
+            return query;
+        } 
         
         public async Task<TransactionDto> Add(TransactionDto transactionDto)
         {

@@ -9,6 +9,7 @@ namespace HuaMoney.ViewModel
         public ViewModelMappingProfile()
         {
             CreateMap<TransactionCreateViewModel, TransactionDto>().ReverseMap();
+            CreateMap<TransactionFilterViewModel, TransactionFilterDto>().ReverseMap();
         }
     }
 }

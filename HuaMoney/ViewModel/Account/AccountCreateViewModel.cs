@@ -1,8 +1,6 @@
 using HuaMoney.Dto.Account;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 
-namespace HuaMoney.ViewModel.Transaction;
+namespace HuaMoney.ViewModel.Account;
 
 public class AccountCreateViewModel
 {
