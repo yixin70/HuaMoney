@@ -1,4 +1,5 @@
-﻿using HuaMoney.Dto.Bank;
+﻿using HuaMoney.Dto.Account;
+using HuaMoney.Dto.Bank;
 using HuaMoney.Dto.Transaction;
 
 namespace HuaMoney.Dto
@@ -9,6 +10,7 @@ namespace HuaMoney.Dto
         {
             CreateMap<Models.Bank, BankDto>().ReverseMap();
             CreateMap<Models.Transaction, TransactionDto>().ReverseMap();
+            CreateMap<Models.Account, AccountDto>().ReverseMap();
         }
 
     }

@@ -47,10 +47,12 @@ namespace HuaMoney.Controllers
 
         // GET: Transaction/Create
         [HttpGet("[controller]/[action]")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            //ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id");
-            return View();
+            var vm = new TransactionCreateViewModel();
+            vm.Accounts = await _accountService.Find();
+
+            return View(vm);
         }
 
         // POST: Transaction/Create

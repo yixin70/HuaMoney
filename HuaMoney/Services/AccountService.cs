@@ -13,6 +13,12 @@ public class AccountService: IAccountService
     private readonly HuaMoneyContext _context;
     private readonly IMapper _mapper;
         
+    public AccountService(HuaMoneyContext context, IMapper mapper)
+    {
+        _context=context;
+        _mapper=mapper;
+    }
+
     public async Task<List<AccountDto>> Find()
     {
         return await _context.Accounts.AsNoTracking()
