@@ -2,6 +2,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HuaMoney.Dto.Account;
 using HuaMoney.Dto.Bank;
+using HuaMoney.Dto.Transaction;
 using HuaMoney.Interfaces;
 using HuaMoney.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,5 +25,30 @@ public class AccountService: IAccountService
         return await _context.Accounts.AsNoTracking()
                                     .ProjectTo<AccountDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync();
+    }
+
+    public async Task<AccountDto> Add(AccountDto accountDto)
+    {
+        var account = _mapper.Map<Account>(accountDto);
+        _context.Accounts.Add(account);
+        await _context.SaveChangesAsync();
+        return _mapper.Map<AccountDto>(account);
+    }
+
+    public async Task<AccountDto> FindOne(long id)
+    {
+        var account = await _context.Accounts.Where(item => item.Id == id)
+                                                    .AsNoTracking()
+                                                    .ProjectTo<AccountDto>(_mapper.ConfigurationProvider)
+                                                    .FirstOrDefaultAsync();
+
+        return account;
+    }
+
+    public async Task<int> Delete(long id)
+    {
+        var account = await _context.Accounts.Where(item => item.Id == id).FirstAsync();
+        _context.Remove(account);
+        return await _context.SaveChangesAsync();
     }
 }
