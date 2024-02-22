@@ -1,6 +1,7 @@
 using HuaMoney.Dto.Transaction;
 using HuaMoney.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using HuaMoney.ViewModel.Transaction;
 using AutoMapper;
 using HuaMoney.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,17 +35,17 @@ namespace HuaMoney.Controllers
             return View(transactionViewModel);
         }
 
-        // GET: Transaction/Details/5
-        [HttpGet("[controller]/[action]/{id}")]
-        public async Task<IActionResult> Details(long id)
-        {
-
-            var transactionDto = await _accountService.FindOne(id);
-
-            if (transactionDto == null) return NotFound();
-
-            return View(transactionDto);
-        }
+        // // GET: Transaction/Details/5
+        // [HttpGet("[controller]/[action]/{id}")]
+        // public async Task<IActionResult> Details(long id)
+        // {
+        //
+        //     var transactionDto = await _accountService.FindOne(id);
+        //
+        //     if (transactionDto == null) return NotFound();
+        //
+        //     return View(transactionDto);
+        // }
 
         // GET: Transaction/Create
         [HttpGet("[controller]/[action]")]
@@ -52,7 +53,6 @@ namespace HuaMoney.Controllers
         {
             var vm = new AccountCreateViewModel();
             vm.Accounts = await _accountService.Find();
-
             return View(vm);
         }
 
@@ -81,16 +81,16 @@ namespace HuaMoney.Controllers
 
         // GET: Transaction/Delete/5
         [HttpGet("[controller]/[action]/{id}")]
-        public async Task<IActionResult> Delete(long id)
-        {
-            var transaction = await _accountService.FindOne(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-            var transactionfromdto = _mapper.Map<Transaction>(transaction);
-            return View(transactionfromdto);
-        }
+        // public async Task<IActionResult> Delete(long id)
+        // {
+        //     var transaction = await _accountService.FindOne(id);
+        //     if (transaction == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     var transactionfromdto = _mapper.Map<Transaction>(transaction);
+        //     return View(transactionfromdto);
+        // }
 
         // POST: Transaction/Delete/5
         //[HttpPost, ActionName("Delete")]
