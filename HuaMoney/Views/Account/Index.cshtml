@@ -1,42 +1,61 @@
-@model AccountCreateViewModel
+@model AccountIndexViewModel
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AccountNumber" class="control-label"></label>
-                <input asp-for="AccountNumber" class="form-control" />
-                <span asp-validation-for="AccountNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankId" class="control-label"></label>
-                <input asp-for="BankId" class="form-control" />
-                <span asp-validation-for="BankId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Currency" class="control-label"></label>
-                <input asp-for="Currency" class="form-control" />
-                <span asp-validation-for="Currency" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                UserId
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                AccountNumber
+            </th>
+            <th>
+                Currency
+            </th>
+            <th>
+                Bank
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Accounts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrencyId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

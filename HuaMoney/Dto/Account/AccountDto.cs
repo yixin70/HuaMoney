@@ -12,7 +12,7 @@
 
         public long BankId { get; set; }
 
-        public string Currency { get; set; }
+        public string CurrencyId { get; set; }
 
         public string Name { get; set; }
     }

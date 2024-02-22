@@ -1,5 +1,7 @@
-﻿using HuaMoney.Dto.Bank;
+﻿using HuaMoney.Dto.Account;
+using HuaMoney.Dto.Bank;
 using HuaMoney.Dto.Transaction;
+using HuaMoney.ViewModel.Account;
 using HuaMoney.ViewModel.Transaction;
 
 namespace HuaMoney.ViewModel
@@ -10,6 +12,8 @@ namespace HuaMoney.ViewModel
         {
             CreateMap<TransactionCreateViewModel, TransactionDto>().ReverseMap();
             CreateMap<TransactionFilterViewModel, TransactionFilterDto>().ReverseMap();
+            
+            CreateMap<AccountCreateViewModel, AccountDto>().ReverseMap();
         }
     }
 }
