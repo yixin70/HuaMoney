@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace HuaMoney.Models;
 
-public partial class HuaMoneyContext : DbContext
+public partial class HuaMoneyContext : IdentityDbContext
 {
-    public HuaMoneyContext()
-    {
-    }
 
     public HuaMoneyContext(DbContextOptions<HuaMoneyContext> options)
         : base(options)
     {
     }
-
     public virtual DbSet<Account> Accounts { get; set; }
 
     public virtual DbSet<Bank> Banks { get; set; }
@@ -30,6 +27,8 @@ public partial class HuaMoneyContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
